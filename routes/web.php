@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Container\Attributes\DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,4 +28,16 @@ Route::post('/about', function () {
         '3' => 'Sales',
     ];
     return view('about', compact('name', 'departments'));
+});
+
+Route::get('tasks', function () {
+    return view('tasks');
+});
+
+Route::post('create', function () {
+    $task_name = $_POST['name'];
+    FacadesDB::table('task')->insert([
+        'name' => $task_name,
+    ]);
+    return view('tasks');
 });
